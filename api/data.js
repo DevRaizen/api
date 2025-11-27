@@ -1,6 +1,6 @@
-import axios from "axios";
+const axios = require("axios");
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -16,14 +16,14 @@ export default async function handler(req, res) {
   try {
     const { prompt, myContext } = req.body;
 
-    const response = await axios.post(
+    const result = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.API_KEY}`,
       {
         contents: [
           {
             parts: [
-              { text: prompt },
-              { text: myContext }
+              { text: prompt || "" },
+              { text: myContext || "" }
             ]
           }
         ]
@@ -31,10 +31,13 @@ export default async function handler(req, res) {
     );
 
     res.status(200).json({
-      result: response.data.candidates?.[0]?.content?.parts?.[0]?.text || "No output"
+      result:
+        result.data.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No response"
     });
+
   } catch (error) {
-    console.error("Backend Error:", error);
+    console.error("SERVER ERROR:", error);
     res.status(500).json({ error: String(error) });
   }
-}
+};
