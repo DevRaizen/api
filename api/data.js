@@ -1,3 +1,8 @@
+// Load environment variables locally (optional for local testing)
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const axios = require("axios");
 
 module.exports = async function handler(req, res) {
