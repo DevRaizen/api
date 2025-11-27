@@ -7,7 +7,7 @@ const axios = require("axios");
 
 module.exports = async function handler(req, res) {
   res.setHeader( "Access-Control-Allow-Origin",
-  "https://DevRaizen.github.io");
+  "https://devraizen.github.io");
   res.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
