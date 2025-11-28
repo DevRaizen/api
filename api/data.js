@@ -6,15 +6,7 @@ if (process.env.NODE_ENV !== "production") {
 const axios = require("axios");
 
 module.exports = async function handler(req, res) {
-  const allowedOrigins = [
-  "http://localhost:4200",
-  "https://devraizen.github.io"
-];
-
-const origin = req.headers.origin;
-if (allowedOrigins.includes(origin)) {
-  res.setHeader("Access-Control-Allow-Origin", origin);
-}
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
